@@ -1,0 +1,48 @@
+{% extends "registration/base.html" %}
+{% load bootstrap3%}
+{% load static %}
+
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+
+</head>
+<div class="container">
+  <div class="row">
+    <!-- Empty div -->
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4 form-section">
+      {% if form.errors %}
+        <p>Some information might be incorrect</p>
+      {% endif %}
+      <div class="text-center">
+      <div class="panel panel-default">
+
+        <div class="panel-body">
+          <div class="logo-header">
+            <img alt="Brand" src="{% static 'img/brand.png' %}" height=70 >
+          </div>
+          <form action="/accounts/register/" method="post">
+
+            {% csrf_token%}
+            {% bootstrap_form form %}
+            <div class="form-group text-center">
+              <input type="submit" class="btn btn-primary sign-up-button" value="Sign Up">
+            </div>
+            <input type="hidden" name="next" value="{{next}}">
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+      <div class="panel panel-default">
+        <div class="panel-body text-center">
+          <p>Have an account? <span><a class="" href="/accounts/login">Login</a></span></p>
+        </div>
+      </div>
+
+     
+{% endblock %}
