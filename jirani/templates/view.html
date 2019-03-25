@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+
+{% block content %}
+
+<div class="container">
+  <div class="row top">
+    <div class="col-md-12"></div>
+  </div>
+
+
+  <div class="card" style="width: 50rem;">
+    <h5 class="card-title">{{blog.title}}</h5>
+    <a href="/user/{{blog.username}}" style="color:black;text-decoration:none;margin:auto;">
+      <h6 class="card-subtitle mb-2 text-muted">{{blog.username}}</h6>
+    </a>
+    <img class="card-img-top" src="{{blog.image.url}}" >
+
+    <div class="card-body">
+
+    <p class="card-text">{{blog.post | safe}}</p>
+  </div>
+  <div class="card-footer">
+    {% if comments%}
+    <h4 class="text-center">Comments</h4>
+      {% for comment in comments %}
+      <p>
+        <strong>{{comment.username.username}}</strong> {{comment.comment}}
+      </p>
+      {% endfor %}
+
+    {%else %}
+    <h3 class="text-center">No comments made for this blog post yet</h3>
+    <hr>
+    {% endif %}
+
+    <form  action="/view/blog/{{blog.id}}" method="post" enctype="multipart/form-data">
+      {%csrf_token%}
+
+      {% bootstrap_form form%}
+      <div class="text-center">
+      <input id="votes-input"type="submit" class="btn btn-success btn-lg" value="Post">
+    </div>
+    </form>
+  </div>
+</div>
+
+</div>
+
+<style>
+.top{
+  margin-top: 10px;
+}
+h5{
+  font-size: 30px;
+  text-align: center;
+}
+h6{
+  text-align: center;
+}
+label{
+  display: none;
+}
+</style>
+{% endblock %}
