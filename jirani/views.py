@@ -33,7 +33,7 @@ def index(request):
 def notification(request):
     current_user=request.user
     profile=Profile.objects.get(username=current_user)
-    all_notifications = Notifications.objects.filter(neighbourhood=profile.neighbourhood)
+    all_notifications = Notifications.objects.filter(neighborhood=profile.neighborhood)
 
     return render(request,'notifications.html',{"notifications":all_notifications})
 
@@ -41,7 +41,7 @@ def notification(request):
 def blog(request):
     current_user=request.user
     profile=Profile.objects.get(username=current_user)
-    posts = Post.objects.filter(neighbourhood=profile.neighbourhood)
+    posts = Post.objects.filter(neighborhood=profile.neighborhood)
 
     return render(request,'blog.html',{"posts":posts})
 
@@ -49,7 +49,7 @@ def blog(request):
 def health(request):
     current_user=request.user
     profile=Profile.objects.get(username=current_user)
-    healthservices = Health.objects.filter(neighbourhood=profile.neighbourhood)
+    healthservices = Health.objects.filter(neighborhood=profile.neighborhood)
 
     return render(request,'health.html',{"healthservices":healthservices})
 
@@ -57,7 +57,7 @@ def health(request):
 def security(request):
     current_user=request.user
     profile=Profile.objects.get(username=current_user)
-    authorities = Security.objects.filter(neighbourhood=profile.neighbourhood)
+    authorities = Security.objects.filter(neighborhood=profile.neighborhood)
 
     return render(request,'security.html',{"authorities":authorities})
 
@@ -65,7 +65,7 @@ def security(request):
 def businesses(request):
     current_user=request.user
     profile=Profile.objects.get(username=current_user)
-    businesses = Business.objects.filter(neighbourhood=profile.neighbourhood)
+    businesses = Business.objects.filter(neighborhood=profile.neighborhood)
 
     return render(request,'business.html',{"businesses":businesses})
 
@@ -89,7 +89,7 @@ def view_blog(request,id):
     else:
         form = CommentForm()
 
-    return render(request,'view_blog.html',{"blog":blog,"form":form,"comments":comments})
+    return render(request,'view.html',{"blog":blog,"form":form,"comments":comments})
 
 @login_required(login_url='/accounts/login/')
 def my_profile(request):
@@ -116,8 +116,8 @@ def new_blogpost(request):
         if form.is_valid():
             blogpost = form.save(commit = False)
             blogpost.username = current_user
-            blogpost.neighbourhood = profile.neighbourhood
-            blogpost.avatar = profile.avatar
+            blogpost.neighborhood = profile.neighborhood
+            # blogpost.avatar = profile.avatar
             blogpost.save()
 
         return HttpResponseRedirect('/blog')
@@ -125,7 +125,7 @@ def new_blogpost(request):
     else:
         form = BlogPostForm()
 
-    return render(request,'blogpost_form.html',{"form":form})
+    return render(request,'blog_form.html',{"form":form})
 
 @login_required(login_url='/accounts/login/')
 def new_business(request):
@@ -137,7 +137,7 @@ def new_business(request):
         if form.is_valid():
             business = form.save(commit = False)
             business.owner = current_user
-            business.neighbourhood = profile.neighbourhood
+            business.neighborhood = profile.neighborhood
             business.save()
 
         return HttpResponseRedirect('/business')
@@ -174,11 +174,11 @@ def new_notification(request):
         if form.is_valid():
             notification = form.save(commit = False)
             notification.author = current_user
-            notification.neighbourhood = profile.neighbourhood
+            notification.neighborhood = profile.neighborhood
             notification.save()
 
             if notification.priority == 'High Priority':
-                send_priority_email(profile.name,profile.email,notification.title,notification.notification,notification.author,notification.neighbourhood)
+                send_priority_email(profile.name,profile.email,notification.title,notification.notification,notification.author,notification.neighborhood)
 
         return HttpResponseRedirect('/notifications')
 
@@ -215,12 +215,12 @@ def update_profile(request):
 def search_results(request):
     if 'blog' in request.GET and request.GET["blog"]:
         search_term = request.GET.get("blog")
-        searched_blogposts = BlogPost.search_blogpost(search_term)
+        searched_posts = Post.search_post(search_term)
         message=f"{search_term}"
 
-        print(searched_blogposts)
+        print(searched_posts)
 
-        return render(request,'search.html',{"message":message,"blogs":searched_blogposts})
+        return render(request,'search.html',{"message":message,"blogs":searched_posts})
 
     else:
         message="You haven't searched for any term"
