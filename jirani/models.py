@@ -53,16 +53,16 @@ class Post(models.Model):
     image = models.ImageField(upload_to='post/')
     post = HTMLField()
     username = models.ForeignKey(User,on_delete=models.CASCADE)
-    neighbourhood= models.ForeignKey(Neighborhood,on_delete=models.CASCADE)
+    neighborhood= models.ForeignKey(Neighborhood,on_delete=models.CASCADE)
     post_date = models.DateTimeField(auto_now_add=True)
-    avatar = models.ImageField(upload_to='avatars/')
+    
 
     def __str__(self):
         return self.title
 
     @classmethod
     def search_post(cls,search_term):
-        blogs = cls.objects.filter(Q(username__username=search_term) | Q(neighbourhood__neighbourhood=search_term) | Q(title__icontains=search_term))
+        blogs = cls.objects.filter(Q(username__username=search_term) | Q(neighborhood__neighborhood=search_term) | Q(title__icontains=search_term))
         return blogs
 
 
@@ -77,7 +77,7 @@ class Notifications(models.Model):
     notification = HTMLField()
     # priority = models.CharField(max_length=15,choices=Priority,default="Informational")
     author = models.ForeignKey(User,on_delete=models.CASCADE)
-    neighbourhood = models.ForeignKey(Neighborhood,on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(Neighborhood,on_delete=models.CASCADE)
     post_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -97,7 +97,7 @@ class medicalservices(models.Model):
         cls.objects.filter(medicalservices=medicalservices).delete()
 
 class Health(models.Model):
-    neighbourhood = models.ForeignKey(Neighborhood,on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(Neighborhood,on_delete=models.CASCADE)
     name =models.CharField(max_length=100)
     email = models.EmailField()
     contact = models.IntegerField()
@@ -108,7 +108,7 @@ class Health(models.Model):
         return self.name
 
 class Security(models.Model):
-    neighbourhood = models.ForeignKey(Neighborhood,on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(Neighborhood,on_delete=models.CASCADE)
     name =models.CharField(max_length=100)
     email = models.EmailField()
     contact = models.IntegerField()
