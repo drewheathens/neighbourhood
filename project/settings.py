@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'jirani',
     'tinymce',
+    'bootstrap3',
 
 ]
 
