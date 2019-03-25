@@ -12,7 +12,7 @@
         <a class="nav-link" href="{% url 'authorities'%}">security</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'blog'%}">Blog</a>
+        <a class="nav-link" href="{% url 'blog'%}">Updates</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'businesses'%}">Businesses</a>
@@ -20,9 +20,7 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'health'%}">Medics</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'notifications'%}">Notifications</a>
-      </li>
+     
 
       {% if user.is_superuser %}
       <li class="nav-item">
