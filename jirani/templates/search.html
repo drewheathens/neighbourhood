@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="../static/css/profile.css">
+  <link rel="stylesheet" href="../static/css/base.css">
+
+</head>
+
+
+<div class="container">
+  <div class="row text-center">
+    {% if blogs %}
+    <h2> Found {{blogs|length}} results with the search term "{{message}}"</h2>
+    {% else %}
+    <h2> Found 0 results for the search term "{{message}}"</h2>
+    {% endif %}
+  </div>
+
+
+  {% if blogs %}
+  <div class="text-center">
+    <div class="panel" style="width: 40rem;">
+      <!-- <div class="custom-card-header"> -->
+      <div class="panel-body">
+        {% for blog in blogs%}
+        <!-- <div class="custom-card-header"> -->
+
+        <div class="card" style="width: 20rem;">
+        <div class="card-body">
+          <a href="/view/blog/{{blog.id}}" style="color:black;text-decoration:none;margin:auto;">
+            <h5 class="card-title">{{blog.title}}</h5>
+          </a>
+          <a href="/user/{{blog.username}}" style="color:black;text-decoration:none;margin:auto;">
+            <h6 class="card-subtitle mb-2 text-muted">{{blog.username}}</h6>
+          </a>
+          <p class="card-text">{{blog.post|truncatechars:200 | safe}}</p>
+          <a href="/view/blog/{{blog.id}}" class="card-link">Continue reading</a>
+        </div>
+      </div>
+        <!-- </div> -->
+
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+    {%endif %}
+</div>
+<style>
+h2{
+  color:white;
+}
+
+</style>
+{% endblock %}
