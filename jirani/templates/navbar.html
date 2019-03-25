@@ -1,12 +1,13 @@
+{%load bootstrap4 %}
 {% load static %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/">Jirani</a>
+<nav id="n1" class="navbar navbar-expand-lg navbar-light bg-light">
+  <a style="margin-right: 30px;" class="navbar-brand" href="/">Jirani</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="nav nav-tabs">
       <li class="nav-item">
         <a class="nav-link" href="{% url 'authorities'%}">security</a>
       </li>
@@ -47,10 +48,17 @@
       {% endif %}
     </ul>
 
-    <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search_results'%}">
+    <form style="margin-left: 50px;" class="form-inline my-2 my-lg-0" role="search" action="{% url 'search_results'%}">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="blog" >
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
 </nav>
+<style type="text/css">
+#n1 {
+  margin-bottom: 25px;
+}
+
+
+</style>
 
