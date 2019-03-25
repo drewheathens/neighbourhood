@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'jirani',
     'tinymce',
     'bootstrap3',
+    'bootstrap4',
 
 ]
 

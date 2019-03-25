@@ -23,7 +23,7 @@ def index(request):
         if not request.user.is_authenticated:
             return redirect('/accounts/login/')
         current_user=request.user
-        profile =Profile.objects.get(name=current_user)
+        profile =Profile.objects.get(username=current_user)
     except ObjectDoesNotExist:
         return redirect('create-profile')
 
@@ -67,7 +67,7 @@ def businesses(request):
     profile=Profile.objects.get(username=current_user)
     businesses = Business.objects.filter(neighbourhood=profile.neighbourhood)
 
-    return render(request,'businesses.html',{"businesses":businesses})
+    return render(request,'business.html',{"businesses":businesses})
 
 @login_required(login_url='/accounts/login/')
 def view_blog(request,id):

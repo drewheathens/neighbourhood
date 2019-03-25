@@ -7,19 +7,6 @@ import datetime as dt
 
 
 # Create your models here.
-class Profile(models.Model):
-	name = models.TextField(max_length = 100)
-	photo = models.ImageField(upload_to = 'profile/')
-	profile = models.ForeignKey(User,on_delete=models.CASCADE,null = True)
-	bio = models.TextField(max_length = 100)
-	contact = models.IntegerField()
-	email = models.TextField(max_length = 50)
-
-	def save_profile(self):
-		self.save()
-
-	def delete_profile(self):
-		self.delete()
 
 class Neighborhood(models.Model):
 	neighborhood= models.CharField(max_length=100)
@@ -35,6 +22,19 @@ class Neighborhood(models.Model):
 		cls.objects.filter(neighborhood=neighborhood).delete()
 
 # class Category(models.Model):
+class Profile(models.Model):
+	description = HTMLField()
+	neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+	username = models.ForeignKey(User,on_delete=models.CASCADE)
+	name =models.CharField(max_length=100)
+	email = models.EmailField()
+
+
+	def save_profile(self):
+		self.save()
+
+	def delete_profile(self):
+		self.delete()
 
 class Business(models.Model):
 	description = HTMLField()
