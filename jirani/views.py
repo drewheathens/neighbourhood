@@ -140,12 +140,12 @@ def new_business(request):
             business.neighborhood = profile.neighborhood
             business.save()
 
-        return HttpResponseRedirect('/business')
+        return HttpResponseRedirect('/businesses')
 
     else:
         form = BusinessForm()
 
-    return render(request,'business_form.html',{"form":form})
+    return render(request,'bis_form.html',{"form":form})
 
 
 @login_required(login_url='/accounts/login/')
