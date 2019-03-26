@@ -18,9 +18,11 @@
     {% bootstrap_css %}
   {% endblock %}
 
+  <link rel="stylesheet" type="text/css" href="">
+
 </head>
 
-<body>
+<body id="login" background="static/img/login.jpeg">
 
   {% block content %}
 
@@ -33,5 +35,10 @@
   {% endblock %}
 
 </body>
+<style type="text/css">
+  body {
+  background-image: url("img/login.jpeg");
+}
+</style>
 
 </html>
